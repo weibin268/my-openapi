@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @ComponentScan
 @Configuration
-@MapperScan("com.yd.openapi.mapper")
+@MapperScan("com.zhuang.openapi.mapper")
 public class YdOpenApiAutoConfig {
 
 }
