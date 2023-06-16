@@ -55,6 +55,11 @@ public class YdOpenapiLog implements Serializable {
     @TableField("api_execute_times")
     private Integer apiExecuteTimes;
 
+    @ApiModelProperty(value = "客户端IP")
+    @TableField("client_ip")
+    private String clientIp;
+
+
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     private Date createTime;

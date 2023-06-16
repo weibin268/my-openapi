@@ -3,6 +3,8 @@ package com.zhuang.openapi.service.log;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhuang.openapi.pojo.log.YdOpenapiLog;
 import com.zhuang.openapi.mapper.log.YdOpenapiLogMapper;
+import com.zhuang.openapi.util.RequestUtils;
+import com.zhuang.openapi.util.SpringWebUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -21,28 +23,6 @@ import java.util.Date;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class YdOpenapiLogService extends ServiceImpl<YdOpenapiLogMapper, YdOpenapiLog> {
 
-    /*
-
-    @ApiModelProperty(value = "OpenApi用户ID")
-    @TableField("openapi_user_id")
-    private String openapiUserId;
-
-    @ApiModelProperty(value = "api名字")
-    @TableField("api_name")
-    private String apiName;
-
-    @ApiModelProperty(value = "api参数值")
-    @TableField("api_params")
-    private String apiParams;
-
-    @ApiModelProperty(value = "接口执行时间（单位：毫秒）")
-    @TableField("api_execute_times")
-    private Integer apiExecuteTimes;
-
-    @ApiModelProperty(value = "创建时间")
-    @TableField("create_time")
-    private Date createTime;
-     */
     public void add(String openapiUserId, String apiName, String apiParams, Integer apiExecuteTimes) {
         YdOpenapiLog ydOpenapiLog = new YdOpenapiLog();
         ydOpenapiLog.setOpenapiUserId(openapiUserId);
@@ -50,6 +30,7 @@ public class YdOpenapiLogService extends ServiceImpl<YdOpenapiLogMapper, YdOpena
         ydOpenapiLog.setApiParams(apiParams);
         ydOpenapiLog.setApiExecuteTimes(apiExecuteTimes);
         ydOpenapiLog.setCreateTime(new Date());
+        ydOpenapiLog.setClientIp(RequestUtils.getIpAddr(SpringWebUtils.getRequest()));
         save(ydOpenapiLog);
     }
 }
