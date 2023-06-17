@@ -1,5 +1,6 @@
 package com.zhuang.openapi.controller;
 
+import com.zhuang.openapi.annotation.OpenApi;
 import com.zhuang.openapi.model.ApiResult;
 import com.zhuang.openapi.model.GetTokenArgs;
 import com.zhuang.openapi.model.GetTokenResult;
@@ -34,4 +35,10 @@ public class OpenApiController {
         return resultVo;
     }
 
+    @OpenApi
+    @ApiOperation("sayHello")
+    @GetMapping("sayHello")
+    public ApiResult<String> sayHello(@RequestParam("name") String name) {
+        return ApiResult.success(name);
+    }
 }
