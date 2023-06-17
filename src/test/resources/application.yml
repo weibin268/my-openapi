@@ -4,5 +4,6 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/upms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
-    username: zhuang
+    username: root
     password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
