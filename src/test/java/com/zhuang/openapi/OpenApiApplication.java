@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@ImportAutoConfiguration(YdOpenApiAutoConfig.class)
+@ImportAutoConfiguration(SysOpenApiAutoConfig.class)
 public class OpenApiApplication {
 
     public static void main(String[] args) {

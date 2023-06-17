@@ -1,8 +1,8 @@
 package com.zhuang.openapi.service.log;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhuang.openapi.pojo.log.YdOpenapiLog;
-import com.zhuang.openapi.mapper.log.YdOpenapiLogMapper;
+import com.zhuang.openapi.pojo.log.SysOpenapiLog;
+import com.zhuang.openapi.mapper.log.SysOpenapiLogMapper;
 import com.zhuang.openapi.util.RequestUtils;
 import com.zhuang.openapi.util.SpringWebUtils;
 import org.springframework.stereotype.Service;
@@ -21,16 +21,16 @@ import java.util.Date;
  */
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class YdOpenapiLogService extends ServiceImpl<YdOpenapiLogMapper, YdOpenapiLog> {
+public class YdOpenapiLogService extends ServiceImpl<SysOpenapiLogMapper, SysOpenapiLog> {
 
     public void add(String openapiUserId, String apiName, String apiParams, Integer apiExecuteTimes) {
-        YdOpenapiLog ydOpenapiLog = new YdOpenapiLog();
-        ydOpenapiLog.setOpenapiUserId(openapiUserId);
-        ydOpenapiLog.setApiName(apiName);
-        ydOpenapiLog.setApiParams(apiParams);
-        ydOpenapiLog.setApiExecuteTimes(apiExecuteTimes);
-        ydOpenapiLog.setCreateTime(new Date());
-        ydOpenapiLog.setClientIp(RequestUtils.getIpAddr(SpringWebUtils.getRequest()));
-        save(ydOpenapiLog);
+        SysOpenapiLog sysOpenapiLog = new SysOpenapiLog();
+        sysOpenapiLog.setOpenapiUserId(openapiUserId);
+        sysOpenapiLog.setApiName(apiName);
+        sysOpenapiLog.setApiParams(apiParams);
+        sysOpenapiLog.setApiExecuteTimes(apiExecuteTimes);
+        sysOpenapiLog.setCreateTime(new Date());
+        sysOpenapiLog.setClientIp(RequestUtils.getIpAddr(SpringWebUtils.getRequest()));
+        save(sysOpenapiLog);
     }
 }

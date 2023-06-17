@@ -5,10 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import com.zhuang.openapi.model.GetTokenArgs;
 import com.zhuang.openapi.model.GetTokenResult;
 import com.zhuang.openapi.model.OpenApiUserInfo;
-import com.zhuang.openapi.pojo.user.YdOpenapiUser;
-import com.zhuang.openapi.pojo.user.YdOpenapiUserRef;
-import com.zhuang.openapi.service.user.YdOpenapiUserRefService;
-import com.zhuang.openapi.service.user.YdOpenapiUserService;
+import com.zhuang.openapi.pojo.user.SysOpenapiUser;
+import com.zhuang.openapi.pojo.user.SysOpenapiUserRef;
+import com.zhuang.openapi.service.user.SysOpenapiUserRefService;
+import com.zhuang.openapi.service.user.SysOpenapiUserService;
 import com.zhuang.openapi.util.JwtUtils;
 import com.zhuang.openapi.util.SpringWebUtils;
 import io.jsonwebtoken.Claims;
@@ -33,9 +33,9 @@ public class OpenApiService {
     private static final String TOKEN_KEY = "token";
 
     @Autowired
-    private YdOpenapiUserService ydOpenapiUserService;
+    private SysOpenapiUserService sysOpenapiUserService;
     @Autowired
-    private YdOpenapiUserRefService ydOpenapiUserRefService;
+    private SysOpenapiUserRefService sysOpenapiUserRefService;
 
     /**
      * 获取token
@@ -45,16 +45,16 @@ public class OpenApiService {
      */
     public GetTokenResult getToken(GetTokenArgs args) {
         GetTokenResult result = new GetTokenResult();
-        YdOpenapiUser ydOpenapiUser = ydOpenapiUserService.getByUsername(args.getUsername());
-        if (ydOpenapiUser == null || !args.getPassword().equals(ydOpenapiUser.getPassword())) {
+        SysOpenapiUser sysOpenapiUser = sysOpenapiUserService.getByUsername(args.getUsername());
+        if (sysOpenapiUser == null || !args.getPassword().equals(sysOpenapiUser.getPassword())) {
             throw new RuntimeException("invalid username  or password!");
         }
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", ydOpenapiUser.getId());
+        claims.put("userId", sysOpenapiUser.getId());
         claims.put("username", args.getUsername());
         claims.put("password", args.getPassword());
-        List<YdOpenapiUserRef> ydOpenapiUserRefList = ydOpenapiUserRefService.getListByOpenapiUserId(ydOpenapiUser.getId());
-        List<OpenApiUserInfo.RefInfo> refList = ydOpenapiUserRefList.stream().map(item -> {
+        List<SysOpenapiUserRef> sysOpenapiUserRefList = sysOpenapiUserRefService.getListByOpenapiUserId(sysOpenapiUser.getId());
+        List<OpenApiUserInfo.RefInfo> refList = sysOpenapiUserRefList.stream().map(item -> {
             OpenApiUserInfo.RefInfo refInfo = new OpenApiUserInfo.RefInfo();
             refInfo.setRefTable(item.getRefTable());
             refInfo.setRefId(item.getRefId());
