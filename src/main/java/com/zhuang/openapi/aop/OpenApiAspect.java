@@ -18,7 +18,9 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -53,7 +55,15 @@ public class OpenApiAspect {
         long startTimeMillis = System.currentTimeMillis();
         String argsJson = null;
         if (proceedingJoinPoint.getArgs() != null) {
-            List<Object> args = Arrays.stream(proceedingJoinPoint.getArgs()).filter(item -> !(item instanceof HttpServletRequest)).collect(Collectors.toList());
+            List<Object> args = Arrays.stream(proceedingJoinPoint.getArgs()).map(item -> {
+                if (item instanceof HttpServletRequest) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("type", "HttpServletRequest");
+                    return map;
+                } else {
+                    return item;
+                }
+            }).collect(Collectors.toList());
             argsJson = JSON.toJSONString(args);
         }
         String apiClass = signature.getDeclaringTypeName();
