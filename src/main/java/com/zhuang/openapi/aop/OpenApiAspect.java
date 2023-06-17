@@ -15,7 +15,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Aspect
@@ -49,7 +53,8 @@ public class OpenApiAspect {
         long startTimeMillis = System.currentTimeMillis();
         String argsJson = null;
         if (proceedingJoinPoint.getArgs() != null) {
-            argsJson = JSON.toJSONString(proceedingJoinPoint.getArgs());
+            List<Object> args = Arrays.stream(proceedingJoinPoint.getArgs()).filter(item -> !(item instanceof HttpServletRequest)).collect(Collectors.toList());
+            argsJson = JSON.toJSONString(args);
         }
         String apiClass = signature.getDeclaringTypeName();
         String apiMethod = signature.getName();
