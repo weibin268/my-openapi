@@ -61,8 +61,9 @@ public class OpenApiService {
             return refInfo;
         }).collect(Collectors.toList());
         claims.put("refList", refList);
-        Integer timeoutMinutes = 60;
-        String token = JwtUtils.createToken(claims, DateUtil.offsetMinute(new Date(), timeoutMinutes));
+        int timeoutMinutes = 60;
+        int actualTimeoutMinutes = timeoutMinutes + 10;
+        String token = JwtUtils.createToken(claims, DateUtil.offsetMinute(new Date(), actualTimeoutMinutes));
         result.setToken(token);
         result.setTimeoutMinutes(timeoutMinutes);
         return result;
