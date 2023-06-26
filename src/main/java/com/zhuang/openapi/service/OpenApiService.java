@@ -77,8 +77,7 @@ public class OpenApiService {
         if (StrUtil.isEmpty(token)) {
             throw new RuntimeException("no token provided!");
         }
-        OpenApiUserInfo openApiUserInfo = parseToken(token);
-        return openApiUserInfo;
+        return parseToken(token);
     }
 
     public OpenApiUserInfo parseToken(String token) {
