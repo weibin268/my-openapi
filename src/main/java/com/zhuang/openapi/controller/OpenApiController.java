@@ -19,6 +19,7 @@ public class OpenApiController {
     @Autowired
     private OpenApiService openApiService;
 
+    @OpenApi(checkToken = false)
     @ApiOperation("获取Token")
     @PostMapping("getToken")
     public GetTokenResult getToken(@RequestBody GetTokenArgs getTokenArgs) {
@@ -26,6 +27,7 @@ public class OpenApiController {
         return token;
     }
 
+    @OpenApi(checkToken = false)
     @ApiOperation("解析Token")
     @GetMapping("parseToken")
     public ApiResult<OpenApiUserInfo> getToken(@RequestParam("token") String token) {
