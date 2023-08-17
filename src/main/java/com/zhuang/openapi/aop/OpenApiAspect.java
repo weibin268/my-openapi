@@ -90,7 +90,7 @@ public class OpenApiAspect {
         }
         Object result = proceedingJoinPoint.proceed();
         long endTimeMillis = System.currentTimeMillis();
-        ydOpenapiLogService.add(openApiUserInfo == null ? null : openApiUserInfo.getUserId(), apiName, argsJson, new Long(endTimeMillis - startTimeMillis).intValue());
+        ydOpenapiLogService.add(openApiUserInfo == null ? null : openApiUserInfo.getUserId(), apiName, argsJson, Long.valueOf(endTimeMillis - startTimeMillis).intValue());
         return result;
     }
 
