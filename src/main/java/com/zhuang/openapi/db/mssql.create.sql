@@ -12,8 +12,7 @@ create table sys_openapi_user
     create_by   varchar(50),
     modify_time datetime,
     modify_by   varchar(50)
-)
-    go
+) go
 
 exec sp_addextendedproperty 'MS_Description', 'OpenApi用户表', 'SCHEMA', 'dbo', 'TABLE', 'sys_openapi_user'
 go
@@ -58,8 +57,7 @@ create table sys_openapi_user_ref
     openapi_user_id varchar(50),
     ref_table       varchar(50),
     ref_id          varchar(50)
-)
-    go
+) go
 
 exec sp_addextendedproperty 'MS_Description', 'OpenApi用户资源关联表', 'SCHEMA', 'dbo', 'TABLE', 'sys_openapi_user_ref'
 go
@@ -92,11 +90,10 @@ create table sys_openapi_log
     api_name          varchar(100),
     api_params        varchar(1000),
     api_execute_times int,
-    client_ip        varchar(50),
+    client_ip         varchar(50),
     create_time       datetime,
     openapi_user_id   varchar(50)
-)
-    go
+) go
 
 exec sp_addextendedproperty 'MS_Description', 'OpenApi调用日志', 'SCHEMA', 'dbo', 'TABLE', 'sys_openapi_log'
 go
