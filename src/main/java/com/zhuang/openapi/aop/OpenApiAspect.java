@@ -14,6 +14,8 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -59,6 +61,13 @@ public class OpenApiAspect {
                 if (item instanceof HttpServletRequest) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("type", "HttpServletRequest");
+                    if (item instanceof StandardMultipartHttpServletRequest) {
+                        StandardMultipartHttpServletRequest multipartRequest = (StandardMultipartHttpServletRequest) item;
+                        for (Map.Entry<String, List<MultipartFile>> entry : multipartRequest.getMultiFileMap().entrySet()) {
+                            String fileNames = entry.getValue().stream().map(c -> c.getOriginalFilename()).collect(Collectors.joining(";"));
+                            map.put("key_" + entry.getKey(), fileNames);
+                        }
+                    }
                     return map;
                 } else {
                     return item;
