@@ -45,7 +45,7 @@ public class BaseOpenApiRestService {
         token = restResult.getToken();
         Integer timeoutMinutes = restResult.getTimeoutMinutes();
         // 设置token缓存时间
-        CacheUtils.set(cacheKey, token, (timeoutMinutes - 1));
+        CacheUtils.set(cacheKey, token, (timeoutMinutes - 1) * 60);
         log.info("BaseOpenApiRestService.getToken -> from rest: {}", token);
         return token;
     }
