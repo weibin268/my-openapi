@@ -69,6 +69,12 @@ public class OpenApiAspect {
                         }
                     }
                     return map;
+                } else if (item instanceof MultipartFile) {
+                    MultipartFile multipartFile = (MultipartFile) item;
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("type", "MultipartFile");
+                    map.put("key_" + multipartFile.getName(), multipartFile.getOriginalFilename());
+                    return map;
                 } else {
                     return item;
                 }
